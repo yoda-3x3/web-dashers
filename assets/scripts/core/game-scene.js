@@ -3872,6 +3872,12 @@ this._menuUpdateLogBtn = this.add.image(screenWidth - 30 - 50, 33, "GJ_WebSheet"
     this._paused = false;
     this._pauseContainer = null;
     this._sfxVolume = localStorage.getItem("userSfxVol") ?? 1;
+    if (/[?&]flybrain=1/.test(location.search) && !window.FlyBrain) {
+      const fb = document.createElement("script");
+      fb.src = "assets/scripts/flybrain/flybrain.js";
+      fb.onload = () => window.FlyBrain.init();
+      document.head.appendChild(fb);
+    }
     this._initMacroBot();
     this.input.on("pointerdown", () => {
       if (!this._menuActive && !this._paused && !this._levelSelectOverlay && !this._levelWon && !window.isEditor) {
@@ -7957,6 +7963,7 @@ _showwippopup() {
     return _0xd8019e * 60;
   }
   update(_0x54fa47, deltaTime) {
+    if (window.FlyBrain && window.FlyBrain.enabled && !window.isEditor) window.FlyBrain.tick(this, deltaTime);
     if (window.isEditor) {
         if (this._editorPlaytestActive && !this._editorPlaytestPaused) {
             this._levelEditor._updateEditorPlaytest(deltaTime);
