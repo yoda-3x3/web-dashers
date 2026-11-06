@@ -4238,7 +4238,6 @@ this._menuUpdateLogBtn = this.add.image(screenWidth - 30 - 50, 33, "GJ_WebSheet"
       onDragStart(ptr);
       if (isComingSoonPage()) return;
       const levelId = window.currentlevel?.[2];
-      if (getLevelCoinRequirement(levelId) > (Number(window._totalsecretcoins) || 0)) return;
       this.tweens.killTweensOf(cardBounceContainer, "scale");
       this.tweens.add({ targets: cardBounceContainer, scale: 1.26, duration: 300, ease: "Bounce.Out" });
     });
@@ -4302,10 +4301,7 @@ this._menuUpdateLogBtn = this.add.image(screenWidth - 30 - 50, 33, "GJ_WebSheet"
 
             const requiredCoins = getLevelCoinRequirement(window.currentlevel?.[2]);
             const collectedCoins = Number(window._totalsecretcoins) || 0;
-            if (requiredCoins > collectedCoins) {
-              return;
-            }
-            
+
             this.input.enabled = false;
             this.tweens.killTweensOf(cardBounceContainer, "scale");
             cardBounceContainer.setScale(1);
@@ -4365,7 +4361,7 @@ this._menuUpdateLogBtn = this.add.image(screenWidth - 30 - 50, 33, "GJ_WebSheet"
       const levelId = lvl[2] || "level_1";
       const requiredCoins = getLevelCoinRequirement(levelId);
       const collectedCoins = Number(window._totalsecretcoins) || 0;
-      const levellocked = requiredCoins > collectedCoins;
+      const levellocked = false;
       const levelDifficultyMap = {
         "level_1":         "diffIcon_01_btn_001",
         "level_2":         "diffIcon_01_btn_001",
